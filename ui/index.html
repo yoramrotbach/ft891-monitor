@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>891 Monitor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-lcd">
+  <main class="bezel">
+    <div class="face">
+      <div class="leds">
+        <span class="led" id="led" title="TX/BUSY"></span>
+        <span class="led-label">TX/BUSY</span>
+      </div>
+
+      <section class="lcd-wrap" id="lcd-wrap">
+        <svg id="lcd" class="lcd" preserveAspectRatio="xMidYMid meet" aria-label="FT-891 display"></svg>
+
+        <div class="nolink hidden" id="nolink">
+          <div class="nolink-title" id="nolink-title">NO LINK</div>
+          <div class="nolink-msg" id="nolink-msg"></div>
+          <div class="nolink-status" id="nolink-status"></div>
+        </div>
+
+        <form class="freq-entry hidden" id="freq-entry" autocomplete="off">
+          <input id="freq-input" inputmode="decimal" placeholder="MHz, e.g. 14.074" />
+          <button class="btn small" type="submit">Set</button>
+          <span class="hint">Enter applies · Esc cancels</span>
+        </form>
+
+        <div class="menu hidden" id="mode-menu"></div>
+        <div class="toast hidden" id="toast"></div>
+      </section>
+    </div>
+
+    <nav class="keys" id="keys">
+      <button class="key" data-act="mode" title="Choose the operating mode">MODE</button>
+      <button class="key" data-act="band-down" title="Previous band (Page Down)">BAND ▼</button>
+      <button class="key" data-act="band-up" title="Next band (Page Up)">BAND ▲</button>
+      <button class="key" data-act="swap" title="Swap VFO-A and VFO-B">A/B</button>
+      <button class="key" data-act="copy" title="Copy VFO-A to VFO-B">A▸B</button>
+      <button class="key" data-act="split" title="Split on/off">SPLIT</button>
+      <button class="key" data-act="dnr" title="Digital noise reduction on/off">DNR</button>
+      <span class="power">
+        <label for="pwr">PWR</label>
+        <input type="range" id="pwr" min="5" max="100" step="5" value="50" title="Transmit power (applies when you release)" />
+        <span id="pwr-val">— W</span>
+      </span>
+      <span class="spacer"></span>
+      <button class="key lock-btn" data-act="view-only" id="view-only" title="View-only: block all control from this window">🔓</button>
+    </nav>
+
+    <footer class="status">
+      <span class="dot" id="dot"></span>
+      <span id="link-text">Stopped</span>
+      <span class="sep">·</span>
+      <span id="source">Not connected</span>
+      <span class="sep">·</span>
+      <span id="extras"></span>
+      <span class="spacer"></span>
+      <span id="rate"></span>
+      <button class="btn" id="connect-btn">Connect</button>
+      <button class="icon-btn" id="settings-btn" title="Settings" aria-label="Settings">⚙</button>
+    </footer>
+  </main>
+
+  <script src="lcd.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

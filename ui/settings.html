@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>891 Monitor — Settings</title>
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <main class="settings">
+    <fieldset>
+      <legend>Connection</legend>
+      <label class="radio"><input type="radio" name="kind" value="serial" checked /> Direct USB/serial (full detail and all controls)</label>
+      <label class="radio"><input type="radio" name="kind" value="rigctld" /> Hamlib rigctld (share the radio with WSJT-X, loggers)</label>
+      <label class="radio"><input type="radio" name="kind" value="demo" /> Demo (simulated FT-891, no hardware)</label>
+    </fieldset>
+
+    <fieldset id="serial-opts">
+      <legend>Serial port</legend>
+      <div class="field">
+        <select id="port"></select>
+        <button class="btn small" id="refresh-ports" type="button">Refresh</button>
+      </div>
+      <p class="hint">The radio's USB jack shows up as <b>two</b> ports (Silicon Labs CP210x). Pick the <b>Enhanced</b> one (Windows Device Manager names it "Enhanced COM Port"). The Standard port is for PTT and keying.</p>
+      <div class="field">
+        <label for="baud">Baud rate</label>
+        <select id="baud">
+          <option>4800</option><option>9600</option><option>19200</option><option selected>38400</option>
+        </select>
+        <label for="stop-bits">Stop bits</label>
+        <select id="stop-bits"><option value="two">2</option><option value="one">1</option></select>
+      </div>
+      <label class="check"><input type="checkbox" id="rts-cts" checked /> RTS/CTS flow control</label>
+      <p class="hint">Baud rate must match menu 05-06 CAT RATE (factory default 4800). Keep RTS/CTS on while menu 05-08 CAT RTS is ENABLE (the default). DTR is always held low.</p>
+    </fieldset>
+
+    <fieldset id="rigctld-opts" class="hidden">
+      <legend>rigctld</legend>
+      <div class="field">
+        <label for="host">Host</label><input id="host" value="127.0.0.1" />
+        <label for="tcp-port">Port</label><input id="tcp-port" type="number" value="4532" />
+      </div>
+      <p class="hint">Example: <code>rigctld -m 1036 -r COM3 -s 38400</code>. Most indicators and controls work; NAR, IPO, FST and the meter selection need a direct connection.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Control</legend>
+      <label class="check"><input type="checkbox" id="allow-control" /> Allow control from this app</label>
+      <p class="hint">Tuning, mode, band, VFO A/B, split, lock, IPO/ATT/NAR/NB/DNR/FST and power. The app can never transmit: transmit, tune, VOX, keying, menu and memory-write commands are blocked in code. Changes are refused while the radio is transmitting, and tuning is refused while its dial LOCK is on.</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Display</legend>
+      <div class="field">
+        <label for="theme">Backlight</label>
+        <select id="theme">
+          <option value="lcd">Bright (radio default)</option>
+          <option value="dim">Dimmed</option>
+          <option value="night">Night (dark)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="keys-row">Function-key row</label>
+        <select id="keys-row">
+          <option value="sft-scp-dnr">SFT · SCP · DNR</option>
+          <option value="sft-scp-nb">SFT · SCP · NB</option>
+          <option value="att-ipo-nar">ATT · IPO · NAR</option>
+          <option value="nb-agc-moni">NB · AGC · MONI</option>
+          <option value="shift-width-notch">SHIFT · WIDTH · NOTCH</option>
+          <option value="mch-grp-mlist">MCH · GRP · MLIST</option>
+        </select>
+      </div>
+      <p class="hint">The radio doesn't report which A/B/C key row is showing, so pick the one you use. Labels for toggles (DNR, NB, ATT, IPO, NAR) are clickable.</p>
+      <label class="check"><input type="checkbox" id="on-top" /> Keep window on top</label>
+    </fieldset>
+  </main>
+  <footer class="bar">
+    <span class="hint" id="apply-hint">Connection changes apply when you click Done.</span>
+    <button class="btn" id="done" type="button">Done</button>
+  </footer>
+  <script src="settings.js"></script>
+</body>
+</html>

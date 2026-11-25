@@ -1,0 +1,6 @@
+node_modules/
+/target/
+src-tauri/target/
+src-tauri/gen/
+eeprom/src-tauri/gen/
+.DS_Store

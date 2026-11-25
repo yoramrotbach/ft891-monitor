@@ -1,0 +1,17 @@
+{
+  "name": "ft891-monitor",
+  "version": "0.1.0",
+  "description": "Desktop CAT monitor and remote panel for the Yaesu FT-891",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "demo": "tauri dev -- -- --demo",
+    "test": "cargo test --workspace"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.6"
+  },
+  "private": true
+}
